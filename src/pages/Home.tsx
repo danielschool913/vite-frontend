@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import type { FunctionComponent } from "../common/types";
 
@@ -18,6 +19,11 @@ export const Home = (): FunctionComponent => {
 			<button type="submit" onClick={onTranslateButtonClick}>
 				translate
 			</button>
+			<div className="mt-8 mb-8">
+				<Link className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors" to="/posts">
+					Posts Page
+				</Link>
+			</div>
 		</div>
 	);
 };
