@@ -13,6 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as PostsImport } from './routes/posts'
 import { Route as IndexImport } from './routes/index'
+import { Route as PostsPostIdImport } from './routes/posts/$postId'
 
 // Create/Update Routes
 
@@ -24,6 +25,11 @@ const PostsRoute = PostsImport.update({
 const IndexRoute = IndexImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
+} as any)
+
+const PostsPostIdRoute = PostsPostIdImport.update({
+  path: '/$postId',
+  getParentRoute: () => PostsRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -44,12 +50,22 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PostsImport
       parentRoute: typeof rootRoute
     }
+    '/posts/$postId': {
+      id: '/posts/$postId'
+      path: '/$postId'
+      fullPath: '/posts/$postId'
+      preLoaderRoute: typeof PostsPostIdImport
+      parentRoute: typeof PostsImport
+    }
   }
 }
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren({ IndexRoute, PostsRoute })
+export const routeTree = rootRoute.addChildren({
+  IndexRoute,
+  PostsRoute: PostsRoute.addChildren({ PostsPostIdRoute }),
+})
 
 /* prettier-ignore-end */
 
@@ -67,7 +83,14 @@ export const routeTree = rootRoute.addChildren({ IndexRoute, PostsRoute })
       "filePath": "index.ts"
     },
     "/posts": {
-      "filePath": "posts.ts"
+      "filePath": "posts.ts",
+      "children": [
+        "/posts/$postId"
+      ]
+    },
+    "/posts/$postId": {
+      "filePath": "posts/$postId.tsx",
+      "parent": "/posts"
     }
   }
 }
