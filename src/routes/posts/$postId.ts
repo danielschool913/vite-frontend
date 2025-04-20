@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { Post } from "../../pages/Post";
 
 export const Route = createFileRoute('/posts/$postId')({
-  component: () => <div>Hello /posts/$postId!</div>
-})
+    component: Post,
+});

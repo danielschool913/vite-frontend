@@ -13,6 +13,8 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as PostsImport } from './routes/posts'
 import { Route as IndexImport } from './routes/index'
+import { Route as PostsIndexImport } from './routes/posts/index'
+import { Route as PostsNewImport } from './routes/posts/new'
 import { Route as PostsPostIdImport } from './routes/posts/$postId'
 
 // Create/Update Routes
@@ -25,6 +27,16 @@ const PostsRoute = PostsImport.update({
 const IndexRoute = IndexImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
+} as any)
+
+const PostsIndexRoute = PostsIndexImport.update({
+  path: '/',
+  getParentRoute: () => PostsRoute,
+} as any)
+
+const PostsNewRoute = PostsNewImport.update({
+  path: '/new',
+  getParentRoute: () => PostsRoute,
 } as any)
 
 const PostsPostIdRoute = PostsPostIdImport.update({
@@ -57,6 +69,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PostsPostIdImport
       parentRoute: typeof PostsImport
     }
+    '/posts/new': {
+      id: '/posts/new'
+      path: '/new'
+      fullPath: '/posts/new'
+      preLoaderRoute: typeof PostsNewImport
+      parentRoute: typeof PostsImport
+    }
+    '/posts/': {
+      id: '/posts/'
+      path: '/'
+      fullPath: '/posts/'
+      preLoaderRoute: typeof PostsIndexImport
+      parentRoute: typeof PostsImport
+    }
   }
 }
 
@@ -64,7 +90,11 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   IndexRoute,
-  PostsRoute: PostsRoute.addChildren({ PostsPostIdRoute }),
+  PostsRoute: PostsRoute.addChildren({
+    PostsPostIdRoute,
+    PostsNewRoute,
+    PostsIndexRoute,
+  }),
 })
 
 /* prettier-ignore-end */
@@ -83,13 +113,23 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "index.ts"
     },
     "/posts": {
-      "filePath": "posts.ts",
+      "filePath": "posts.tsx",
       "children": [
-        "/posts/$postId"
+        "/posts/$postId",
+        "/posts/new",
+        "/posts/"
       ]
     },
     "/posts/$postId": {
-      "filePath": "posts/$postId.tsx",
+      "filePath": "posts/$postId.ts",
+      "parent": "/posts"
+    },
+    "/posts/new": {
+      "filePath": "posts/new.ts",
+      "parent": "/posts"
+    },
+    "/posts/": {
+      "filePath": "posts/index.ts",
       "parent": "/posts"
     }
   }
