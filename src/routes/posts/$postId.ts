@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { Post } from "../../pages/Post";
+import { SinglePost } from "../../pages/SinglePost.tsx";
 
 export const Route = createFileRoute('/posts/$postId')({
-    component: Post,
+    component: SinglePost,
 });
