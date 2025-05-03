@@ -9,7 +9,7 @@ const api = axios.create({
 });
 
 // Якщо токен доступний у змінній середовища -- додаємо в Authorization
-const token = import.meta.env["VITE_API_AUTH_TOKEN"];
+const token = localStorage.getItem("token");
 if (token) {
     api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 }
