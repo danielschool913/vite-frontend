@@ -62,7 +62,7 @@ Note: Manual trigger also works.
 
 ![img_13.png](img_13.png)
 
-### Final results, an auto built & deploy, working docker image hosted on GHCR:
+### Final result: an auto built/deployed working Docker image hosted on GHCR.
 
 ![img_14.png](img_14.png)
 
