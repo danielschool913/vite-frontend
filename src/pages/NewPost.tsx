@@ -7,6 +7,7 @@ import api from "../api/axios.ts";
 export interface PostCreate {
     title: string;
     content: string;
+    user_id: number;
 }
 
 const createPost = async (data: PostCreate) => {
@@ -22,7 +23,7 @@ const createPost = async (data: PostCreate) => {
 };
 
 export const NewPost = (): FunctionComponent => {
-    const [form, setForm] = useState<PostCreate>({ title: "", content: "" });
+    const [form, setForm] = useState<PostCreate>({ title: "", content: "", user_id: 1});
     const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent) => {

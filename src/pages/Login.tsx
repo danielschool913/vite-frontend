@@ -17,7 +17,7 @@ export const Login = () => {
             const token = response.data.data;
 
             // Зберігаємо токен (можна змінити на sessionStorage)
-            localStorage.setItem("token", token);
+            localStorage.setItem("myproject.authToken", token);
 
             // Налаштування axios (автоматично підставляти токен)
             api.defaults.headers.common["Authorization"] = token;

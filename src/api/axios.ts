@@ -9,7 +9,7 @@ const api = axios.create({
 });
 
 // Якщо токен доступний у змінній середовища -- додаємо в Authorization
-const token = localStorage.getItem("token");
+const token = localStorage.getItem("myproject.authToken");
 if (token) {
     api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 }
